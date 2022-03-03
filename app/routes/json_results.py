@@ -14,7 +14,7 @@ def json_results(job_id):
     data = _response_list_to_dict(response)
 
     # Download the json file
-    return Response(json.dumps(data),
+    return Response(json.dumps(data, indent=4),
                     mimetype='application/json',
                     headers={"Content-disposition":
                                  "attachment; filename=classification.json"}
