@@ -28,3 +28,5 @@ def histograms():
     # otherwise, it is a get request and should return the
     # image and model selector
     return render_template('histogram_select.html', form=form)
+
+
