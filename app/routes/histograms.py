@@ -21,12 +21,8 @@ def histograms():
 
     if form.validate_on_submit():  # POST
         image_id = form.image.data
-        image = form.image
+        return render_template("histogram_output_queue.html", image_id=image_id)
 
-        return render_template("histogram_output_queue.html", image_id=image_id, inImg=image)
-
-    # otherwise, it is a get request and should return the
-    # image and model selector
     return render_template('histogram_select.html', form=form)
 
 
