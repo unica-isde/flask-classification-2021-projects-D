@@ -15,6 +15,7 @@
             align-self: flex-end;
             margin-top: 10px;
             border-radius: 4px;
+            visibility: hidden;
         }
 
 
@@ -45,7 +46,7 @@
                 <a class="btn btn-dark" href="/classifications" role="button">Back</a>
 
                 <a class="btn btn-dark download-btn" href={{ url_for("json_results", job_id=jobID) }} role="button">Download results</a>
-                <a class="btn btn-dark download-btn" href="/json_results/{{ jobID }}" role="button">Download plot</a>
+                <a class="btn btn-dark download-btn" id="download-plot-btn" role="button">Download plot</a>
             </div>
         </div>
     </div>
