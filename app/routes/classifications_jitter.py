@@ -1,13 +1,16 @@
+import os
+import random
+
 import redis
 from flask import render_template
 from rq import Connection, Queue
 from rq.job import Job
+from torchvision import transforms
 
 from app import app
 from app.forms.color_jitter_form import ClassificationColorJitterForm
-from ml.classification_utils import classify_image, fetch_image #
 from config import Configuration
-from torchvision import transforms
+from ml.classification_utils import classify_image, fetch_image  #
 
 config = Configuration()
 
@@ -24,7 +27,7 @@ def classificationsJitter():
         color_values = [form.brightness.data, form.contrast.data, form.saturation.data, form.hue.data]
 
         if not all(values is None for values in color_values):
-            modify_image(image_id, color_values)
+            image_id = modify_image(image_id, color_values)
 
         redis_url = Configuration.REDIS_URL
         redis_conn = redis.from_url(redis_url)
@@ -42,6 +45,9 @@ def classificationsJitter():
 
     # otherwise, it is a get request and should return the
     # image and model selector
+    for file in os.listdir("app/static/imagenet_subset"):
+        if file.startswith("modified"):
+            os.remove("app/static/imagenet_subset/" + file)
     return render_template('classification_jitter_select.html', form=form)
 
 
@@ -53,6 +59,12 @@ def modify_image(img_id, color_values):
     img = fetch_image(img_id)
     transform = transforms.ColorJitter(brightness=color_values[0], contrast=color_values[1],
                                        saturation=color_values[2], hue=color_values[3])
-    tensor = transform(img)
-    print(tensor)
 
+    modified_img = transform(img)
+
+    random_number = random.randint(0, 100000)
+
+    modified_id = 'modified_' + img_id + str(random_number) + '.png'
+    modified_img.save('app/static/imagenet_subset/' + modified_id)
+
+    return modified_id
