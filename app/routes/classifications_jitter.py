@@ -23,7 +23,8 @@ def classificationsJitter():
         model_id = form.model.data
         color_values = [form.brightness.data, form.contrast.data, form.saturation.data, form.hue.data]
 
-        modify_image(image_id, color_values)
+        if not all(values is None for values in color_values):
+            modify_image(image_id, color_values)
 
         redis_url = Configuration.REDIS_URL
         redis_conn = redis.from_url(redis_url)
@@ -45,8 +46,13 @@ def classificationsJitter():
 
 
 def modify_image(img_id, color_values):
+    for i, value in enumerate(color_values):
+        if value is None:
+            color_values[i] = 0
+
     img = fetch_image(img_id)
     transform = transforms.ColorJitter(brightness=color_values[0], contrast=color_values[1],
                                        saturation=color_values[2], hue=color_values[3])
     tensor = transform(img)
     print(tensor)
+
