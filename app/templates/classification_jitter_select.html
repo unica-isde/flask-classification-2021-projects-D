@@ -2,21 +2,61 @@
 
 {% block content %}
 
+    <style>
+    .row{
+        display: flex;
+        margin-left: 3px
+    }
+
+    .label{
+        width: 80px
+    }
+
+    .inputField{
+        margin-left: 10px
+    }
+
+    </style>
+
     <h1>Select Model and Image</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
-        <p>
-            Brightness: {{ form.brightness }}
-        </p>
-        <p>
-            Saturation: {{ form.saturation }}
-        </p>
-        <p>
-            Contrast: {{ form.contrast }}
-        </p>
-        <p>
-            Hue: {{ form.hue }}
-        </p>
+        <div class="row">
+            <p class="label">
+                Brightness:
+            </p>
+            <p class="inputField">
+                {{ form.brightness }}
+            </p>
+        </div>
+
+        <div class="row">
+            <p class="label">
+                Saturation:
+            </p>
+            <p class="inputField">
+                {{ form.saturation }}
+            </p>
+        </div>
+
+        <div class="row">
+            <p class="label">
+                Contrast:
+            </p>
+            <p class="inputField">
+                {{ form.contrast }}
+            </p>
+        </div>
+
+        <div class="row">
+            <p class="label">
+                Hue:
+            </p>
+            <p class="inputField">
+                {{ form.hue }}
+            </p>
+        </div>
+
         <h4>
             Model:
         </h4>
