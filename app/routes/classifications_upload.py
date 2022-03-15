@@ -28,6 +28,8 @@ def classificationsUpload():
         file = request.files['file']
         filename = 'uploaded_' + file.filename
         file.save('app/static/imagenet_subset/' + filename)
+        
+        image_id = filename
 
         redis_url = Configuration.REDIS_URL
         redis_conn = redis.from_url(redis_url)
