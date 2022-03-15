@@ -12,14 +12,24 @@
 $(window).on("load", printHistogram);
 
 function printHistogram(){
-    var script = document.getElementById('readImg');
-    var image_id = script.getAttribute('image_id');
-    setTimeout(function (){
-        processImage(getImageData(image_id))
-      }, 50);
+  /**
+   * Function that prints the image histogram on the html page
+   */
+
+  var script = document.getElementById('readImg');
+  var image_id = script.getAttribute('image_id');
+
+  // wait for the image to finish loading
+  setTimeout(function (){
+    processImage(getImageData(image_id))
+  }, 50);
 }
 
 function getImageData(el) {
+  /**
+   * Function that gets data from the selected image
+   */
+
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
   const img = document.getElementById(el);
@@ -31,6 +41,10 @@ function getImageData(el) {
 }
 
 function processImage(inImg) {
+  /**
+   * Function that, received the selected image data, processes the data and creates the histogram
+   */
+
   const src = new Uint32Array(inImg.data.buffer);
 
   let histBrightness = (new Array(256)).fill(0);
