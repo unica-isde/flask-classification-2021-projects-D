@@ -15,9 +15,11 @@ config = Configuration()
 
 @app.route('/classifications_upload', methods=['GET', 'POST'])
 def classificationsUpload():
-    """API for selecting an image from your computer
+    """
+    API for selecting an image from your computer
     and classify it.
     """
+
     form = ClassificationForm()
     if request.method == "POST":  # POST
         model_id = form.model.data
