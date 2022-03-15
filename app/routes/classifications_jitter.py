@@ -17,15 +17,19 @@ config = Configuration()
 
 @app.route('/classifications_jitter', methods=['GET', 'POST'])
 def classificationsJitter():
-    """API for selecting a model and an image and running a
+    """
+    API for selecting a model and an image and running a
     classification job. Returns the output scores from the
-    model."""
+    model.
+    """
     form = ClassificationColorJitterForm()
     if form.validate_on_submit():  # POST
         image_id = form.image.data
         model_id = form.model.data
+        # Saving color jitter values from the form
         color_values = [form.brightness.data, form.contrast.data, form.saturation.data, form.hue.data]
 
+        # The modify image function is called only if at least one of the fields has been changed
         if not all(values is None for values in color_values):
             image_id = modify_image(image_id, color_values)
 
@@ -53,18 +57,26 @@ def classificationsJitter():
 
 
 def modify_image(img_id, color_values):
+    """
+    Function that takes an array with color jitter values and applies them to
+    the selected image. It creates a new modified image and saves it in the
+    images set.
+    @param color_values: array with values for color jitter transformation
+    @return modified_id: returns the id of the modified image
+    """
+    # Setting default values for undefined fields
     for i, value in enumerate(color_values):
         if value is None:
             color_values[i] = 0
 
+    # Fetching selected image and applying color jitter transform to the selected image
     img = fetch_image(img_id)
     transform = transforms.ColorJitter(brightness=color_values[0], contrast=color_values[1],
                                        saturation=color_values[2], hue=color_values[3])
-
     modified_img = transform(img)
 
+    # Creating a new ID for the new image and saving it in the images set
     random_number = random.randint(0, 100000)
-
     modified_id = 'modified_' + img_id + str(random_number) + '.png'
     modified_img.save('app/static/imagenet_subset/' + modified_id)
 

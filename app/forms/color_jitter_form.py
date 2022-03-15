@@ -7,6 +7,9 @@ conf = Configuration()
 
 
 class ClassificationColorJitterForm(ClassificationForm):
+    """
+    Color Jitter form inheritates from the Classification Form and uses its fields
+    """
     brightness = FloatField('brightness', render_kw={"placeholder": "0"}, validators=[Optional(), NumberRange(min=0, max=100, message='Must enter a number between 0 and 100')])
     saturation = FloatField('saturation', render_kw={"placeholder": "0"}, validators=[Optional(), NumberRange(min=0, max=100, message='Must enter a number between 0 and 100')])
     contrast = FloatField('contrast', render_kw={"placeholder": "0"}, validators=[Optional(), NumberRange(min=0, max=100, message='Must enter a number between 0 and 100')])
