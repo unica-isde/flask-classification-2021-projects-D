@@ -26,12 +26,11 @@ function getImageData(el) {
   canvas.width = img.width;
   canvas.height = img.height;
   context.drawImage(img, 0, 0);
+
   return context.getImageData(0, 0, img.width, img.height);
 }
 
 function processImage(inImg) {
-  const width = inImg.width;
-  const height = inImg.height;
   const src = new Uint32Array(inImg.data.buffer);
 
   let histBrightness = (new Array(256)).fill(0);
