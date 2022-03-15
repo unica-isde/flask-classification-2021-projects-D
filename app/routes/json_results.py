@@ -23,7 +23,9 @@ def json_results(job_id):
 
 def _response_list_to_dict(response):
     """
-    Function that convert the response list (made up by pairs(label, value)) into a dict
+    Function that converts the response list (made up by pairs(label, value)) into a dict
+
+    @param response: the list that contains the classification result
     """
     data = dict()
     for pair in response['data']:
