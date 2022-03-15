@@ -43,12 +43,12 @@ def classificationsJitter():
         # return render_template('classification_output.html', image_id=image_id, results=result_dict)
         return render_template("classification_output_queue.html", image_id=image_id, jobID=task.get_id())
 
-    # otherwise, it is a get request and should return the
-    # image and model selector
     for file in os.listdir("app/static/imagenet_subset"):
         if file.startswith("modified"):
             os.remove("app/static/imagenet_subset/" + file)
 
+    # otherwise, it is a get request and should return the
+    # image and model selector
     return render_template('classification_jitter_select.html', form=form)
 
 
