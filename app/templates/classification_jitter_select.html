@@ -16,6 +16,12 @@
         margin-left: 10px
     }
 
+    .errors {
+        margin-left: 3px;
+        color: darkred;
+        font-size: 12px;
+    }
+
     </style>
 
     <h1>Select Model and Image</h1>
@@ -26,8 +32,15 @@
                 Brightness:
             </p>
             <p class="inputField">
-                {{ form.brightness }}
+                {{ form.brightness(placeholder="0") }}
             </p>
+            {% if form.brightness.errors %}
+            <ul class="errors">
+                {% for error in form.brightness.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
 
         <div class="row">
@@ -35,8 +48,15 @@
                 Saturation:
             </p>
             <p class="inputField">
-                {{ form.saturation }}
+                {{ form.saturation(placeholder="0") }}
             </p>
+            {% if form.saturation.errors %}
+            <ul class="errors">
+                {% for error in form.saturation.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
 
         <div class="row">
@@ -44,8 +64,15 @@
                 Contrast:
             </p>
             <p class="inputField">
-                {{ form.contrast }}
+                {{ form.contrast(placeholder="0") }}
             </p>
+            {% if form.contrast.errors %}
+            <ul class="errors">
+                {% for error in form.contrast.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
 
         <div class="row">
@@ -53,8 +80,15 @@
                 Hue:
             </p>
             <p class="inputField">
-                {{ form.hue }}
+                {{ form.hue(placeholder="0") }}
             </p>
+            {% if form.hue.errors %}
+            <ul class="errors">
+                {% for error in form.hue.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
 
         <h4>

@@ -2,7 +2,7 @@ import os
 import random
 
 import redis
-from flask import render_template
+from flask import render_template, redirect, url_for
 from rq import Connection, Queue
 from rq.job import Job
 from torchvision import transforms
@@ -48,6 +48,7 @@ def classificationsJitter():
     for file in os.listdir("app/static/imagenet_subset"):
         if file.startswith("modified"):
             os.remove("app/static/imagenet_subset/" + file)
+
     return render_template('classification_jitter_select.html', form=form)
 
 
