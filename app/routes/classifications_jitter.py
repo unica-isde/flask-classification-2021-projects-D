@@ -49,7 +49,10 @@ def classificationsJitter():
 
     for file in os.listdir("app/static/imagenet_subset"):
         if file.startswith("modified"):
-            os.remove("app/static/imagenet_subset/" + file)
+            try:
+                os.remove("app/static/imagenet_subset/" + file)
+            except FileNotFoundError:
+                pass
 
     # otherwise, it is a get request and should return the
     # image and model selector
