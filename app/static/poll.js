@@ -79,6 +79,21 @@ function makeGraph(results) {
                         beginAtZero: true
                     }
                 }]
+            },
+            animation: {
+                onComplete: function (){
+                    // Retrieve the two download buttons
+                    let buttons = Array.from(document.getElementsByClassName('download-btn'))
+
+                    // Set the download plot button for downloading the chart
+                    document.getElementById("download-plot-btn").href = myChart.toBase64Image()
+                    document.getElementById("download-plot-btn").download = "classification-chart.png"
+
+                    // Set the buttons visibility to visible
+                    buttons.forEach(element => element.style.visibility = "visible")
+
+
+                }
             }
         }
     });
