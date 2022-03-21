@@ -2,7 +2,7 @@ import os
 import random
 
 import redis
-from flask import render_template, redirect, url_for
+from flask import render_template
 from rq import Connection, Queue
 from rq.job import Job
 from torchvision import transforms
@@ -18,9 +18,11 @@ config = Configuration()
 @app.route('/classifications_jitter', methods=['GET', 'POST'])
 def classificationsJitter():
     """
-    API for selecting a model and an image and running a
-    classification job. Returns the output scores from the
-    model.
+    API that allows the user to select an image from the image list;
+    Then the user can fill a form choosing some parameters to modify the image.
+    The selected image is then altered applying a ColorJitter transform created with
+    the chosen parameters values.
+    If some fields are unfilled, they are set to default value (0).
     """
     form = ClassificationColorJitterForm()
     if form.validate_on_submit():  # POST
@@ -47,6 +49,7 @@ def classificationsJitter():
         # return render_template('classification_output.html', image_id=image_id, results=result_dict)
         return render_template("classification_output_queue.html", image_id=image_id, jobID=task.get_id())
 
+    # On page loading, all the modified images are deleted
     for file in os.listdir("app/static/imagenet_subset"):
         if file.startswith("modified"):
             try:

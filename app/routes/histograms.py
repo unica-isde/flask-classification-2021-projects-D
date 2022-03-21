@@ -10,7 +10,7 @@ config = Configuration()
 @app.route('/histograms', methods=['GET', 'POST'])
 def histograms():
     """
-    Function that takes the chosen image id and renders the html page with its corresponding histogram through a
+    API that takes the chosen image id and renders the html page with its corresponding histogram through a
     JavaScript script
     """
 
